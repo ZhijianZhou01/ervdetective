@@ -5,7 +5,7 @@
 
 ## 1. Download and install
 
-You can get and install ervdetective in a variety of ways.
+You can get and install ERVdetective in a variety of ways.
 
 ### 1.1 pip method
 
@@ -18,7 +18,7 @@ ervdetective -h
 
 ### 1.2 Or local installation
 
-In addition to the  ```pip``` method, you can also install it manually using setup.py file. 
+In addition to the  ```pip``` method, you can also install it manually using ```setup.py``` file. 
 
 Firstly, download this repository, then, run:
 ```
@@ -36,6 +36,7 @@ pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 Then, you can view the help documentation by ```python main.py -h```.
 
+
 ## 2. Software dependencies
 The running of ```ervdetective``` relies on these software:
 (1) ```blast``` (version >=2.9.0+), has to contain ```makeblastdb``` and ```tblastn```,
@@ -48,6 +49,7 @@ genometools: http://genometools.org/ or https://github.com/genometools/genometoo
 hmmer: http://hmmer.org/
 
 These dependencies need to be installed beforehand and added to environment variables of system or user. Then, ervdetective calls them. 
+
 
 ## 3. Getting help
 
@@ -78,7 +80,7 @@ Using ```ervdetective -h```
 
 Take the bat Myotis myotis (GCA_004026985.1) as an example, its genome data was downloaded form https://www.ncbi.nlm.nih.gov/datasets/taxonomy/51298/
 
-Then, running:
+Then, run:
 
 ```
 ervdetective -i GCA_004026985.1_MyoMyo_v1_BIUU_genomic.fna -p myotis_lucifugus -o output
