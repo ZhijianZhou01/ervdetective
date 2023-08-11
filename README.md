@@ -90,5 +90,5 @@ Take the bat Myotis myotis (GCA_004026985.1) as an example, its genome data was 
 Then, run:
 
 ```
-ervdetective -i GCA_004026985.1_MyoMyo_v1_BIUU_genomic.fna -p myotis_lucifugus -o output
+ervdetective -i GCA_004026985.1_MyoMyo_v1_BIUU_genomic.fna -p myotis_myotis -o output
 ```
