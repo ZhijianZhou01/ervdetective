@@ -5,7 +5,7 @@
 
 ## 1. Download and install
 
-ERVdetective is developed via Python3, and you can get and install ERVdetective in a variety of ways.
+ERVdetective is developed via ```Python 3```, and you can get and install ERVdetective in a variety of ways.
 
 ### 1.1. pip method
 
