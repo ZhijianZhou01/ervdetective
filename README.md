@@ -1,4 +1,4 @@
-# ERVdetective: Identification and annotation of endogenous retroviruses
+# ERVdetective: An automated pipeline for identification and annotation of endogenous retroviruses (ERVs)
 
 ![](https://img.shields.io/badge/System-Windows/Linux/MacOS-green.svg)
 
