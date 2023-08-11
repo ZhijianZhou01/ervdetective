@@ -34,7 +34,7 @@ you can also directly run the source code of ervdetective without installation. 
 pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-Then, you can view the help documentation by ```python main.py -h```.
+Then, you can run ervdetective by the ```main.py``` file. Please view the help documentation by ```python main.py -h```.
 
 
 ## 2. Software dependencies
