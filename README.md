@@ -36,7 +36,7 @@ pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 Then, you can view the help documentation by ```python main.py -h```.
 
-### 2. Software dependencies
+## 2. Software dependencies
 The running of ```ervdetective``` relies on these software:
 (1) ```blast``` (version >=2.9.0+), has to contain ```makeblastdb``` and ```tblastn```,
 (2) ```genometools``` (version >=1.6.1), has to contain ```ltrharvest```.
@@ -49,7 +49,7 @@ hmmer: http://hmmer.org/
 
 These dependencies need to be installed beforehand and added to environment variables of system or user. Then, ervdetective calls them. 
 
-3. Getting help
+## 3. Getting help
 
 Using ```ervdetective -h```
 
@@ -74,7 +74,7 @@ Using ```ervdetective -h```
 |-o OUTPUT | The path of output folder to store all the results.|
 
 
-4. Example of usage
+## 4. Example of usage
 
 Take the bat Myotis myotis (GCA_004026985.1) as an example, its genome data was downloaded form https://www.ncbi.nlm.nih.gov/datasets/taxonomy/51298/
 
