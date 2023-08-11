@@ -7,7 +7,7 @@
 
 You can get and install ervdetective in a variety of ways.
 
-1.1 pip method
+### 1.1 pip method
 
 ervdetective has been distributed to the standard library of PyPI, and can be easily installed by ```pip```.
 
@@ -16,7 +16,7 @@ pip install ervdetective
 ervdetective -h
 ```
 
-1.2 Or local installation
+### 1.2 Or local installation
 
 In addition to the  ```pip``` method, you can also install it manually using setup.py file. 
 
@@ -26,7 +26,7 @@ python setup.py install
 ervdetective -h
 ```
 
-1.3 Or run the source code directly
+### 1.3 Or run the source code directly
 
 you can also directly run the source code of ervdetective without installation. First, you should install the required python environment of ervdetective:
 
