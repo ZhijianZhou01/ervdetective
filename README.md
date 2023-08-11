@@ -39,7 +39,7 @@ Then, you can view the help documentation by ```python main.py -h```.
 
 ## 2. Software dependencies
 
-The running of ```ervdetective``` relies on these software:
+The running of ```ervdetective``` relies on these softwares:
 
 (1) ```blast``` (version >=2.9.0+), has to contain ```makeblastdb``` and ```tblastn```,
 
