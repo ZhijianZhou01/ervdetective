@@ -49,7 +49,7 @@ The running of ```ervdetective``` relies on these softwares:
 (3) ```hmmer``` (version >=3.0), has to contain ```hmmpress``` and ```hmmscan```. The hmmer software can be downloaded at http://hmmer.org/
 
 
-<b>Note</b>, these dependencies need to be installed and added to environment variables of system or user beforehand, because ervdetective call them from the environment variables directly.
+<b>Note</b>, these dependencies need to be installed and added to environment variables of system (or user) beforehand, because ervdetective call them from the environment variables directly.
 
 
 ## 3. Getting help
