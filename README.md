@@ -79,7 +79,7 @@ Using ```ervdetective -h```
 
 ## 4. Example of usage
 
-Take the bat Myotis myotis (GCA_004026985.1) as an example, its genome data was downloaded from https://www.ncbi.nlm.nih.gov/datasets/taxonomy/51298/
+The bat Myotis myotis (GCA_004026985.1) , and its genome data was downloaded from https://www.ncbi.nlm.nih.gov/datasets/taxonomy/51298/
 
 Then, run:
 
