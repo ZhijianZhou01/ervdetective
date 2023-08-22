@@ -69,7 +69,7 @@ Using ```ervdetective -h```
 |-d2 MAXDISTLTR | Specify maximum interval of paired-LTRs start-positions, default: 15000.|
 |-t1 MINTSD | Specify minimum length for each TSD site, default: 4.|
 |-t2 MAXTSD | Specify maximum length for each TSD site, default: 6.|
-|-motif MOTIF | Specify start-motif (2 nucleotides) and end-motif (2 nucleotides), default: TGCA.|
+|-motif MOTIF | Specify start-motif (2 nucleotides) and end-motif (2 nucleotides), default string: TGCA.|
 |-mis MISMOTIF | Specify maximum number of mismatches nucleotides in motif, default: 1.|
 |-ed EHMMER | Specify threshold of e-value using for HMMER search, default: 0.0001.|
 |-n THREAD | Specify the number of threads used, default: 1.|
