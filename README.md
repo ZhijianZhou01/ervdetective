@@ -46,7 +46,7 @@ The running of ```ervdetective``` relies on these softwares:
 
 (2) ```genometools``` (version >=1.6.1), has to contain ```ltrharvest```. The genometools software can be downloaded at http://genometools.org/ or https://github.com/genometools/genometools
 
-(3) ```hmmer``` (version >=3.0), has to contain ```hmmscan```. The hmmer software can be downloaded at http://hmmer.org/
+(3) ```hmmer``` (version >=3.0), has to contain ```hmmpress``` and ```hmmscan```. The hmmer software can be downloaded at http://hmmer.org/
 
 
 <b>Note</b>, these dependencies need to be installed and added to environment variables of system or user beforehand, because ervdetective call them from the environment variables directly.
