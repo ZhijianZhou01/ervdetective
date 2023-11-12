@@ -99,7 +99,7 @@ def starts():
 
     print("  Description: An automated pipeline for identification and annotation of endogenous retroviruses.")
 
-    print("  Version: 0.5.1 (2021-11-09)")
+    print("  Version: 0.5.2 (2021-11-09)")
 
     print("  Author: Zhi-Jian Zhou")
 
