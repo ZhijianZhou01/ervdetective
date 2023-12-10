@@ -14,7 +14,7 @@ setuptools.setup(
   long_description_content_type="text/markdown",
   url="https://github.com/ZhijianZhou01/ervdetective",
   packages=setuptools.find_packages(),
-  install_requires=["biopython", "psutil", "colorama"],
+  install_requires=["biopython>=1.78", "psutil>=5.9.1", "colorama>=0.4.6"],
   include_package_data=True,
 
   classifiers=[
