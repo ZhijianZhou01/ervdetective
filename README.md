@@ -4,6 +4,7 @@
 ![](https://img.shields.io/pypi/pyversions/ervdetective)
 
 ![](https://img.shields.io/pypi/wheel/ervdetective)
+![](https://img.shields.io/pypi/dm/ervdetective)
 
 
 
