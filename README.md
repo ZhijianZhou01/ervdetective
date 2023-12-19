@@ -10,11 +10,11 @@
 
 ## 1. Download and install
 
-ERVdetective is developed via ```Python 3```, and you can get and install ERVdetective in a variety of ways.
+```ervdetective``` is developed via ```Python 3```, and you can get and install ERVdetective in a variety of ways.
 
 ### 1.1. pip method
 
-ervdetective has been distributed to the standard library of PyPI, and can be easily installed by the tool ```pip```.
+```ervdetective``` has been distributed to the standard library of PyPI, and can be easily installed by the tool ```pip```.
 
 ```
 pip install ervdetective
