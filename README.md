@@ -46,11 +46,11 @@ Then, you can run ervdetective by the file ```main.py```. Please view the help d
 
 The running of ```ervdetective``` relies on these softwares:
 
-+  ```blast``` (version >=2.9.0+), has to contain ```makeblastdb``` and ```tblastn```. The blast software can be downloaded at https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/
++  [blast](https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/) (version >=2.9.0+), has to contain ```makeblastdb``` and ```tblastn```.
 
-+  ```genometools``` (version >=1.6.1), has to contain ```ltrharvest```. The genometools software can be downloaded at http://genometools.org/ or https://github.com/genometools/genometools
++  [genometools](http://genometools.org/ or https://github.com/genometools/genometools) (version >=1.6.1), has to contain ```ltrharvest```. 
 
-+  ```hmmer``` (version >=3.0), has to contain ```hmmpress``` and ```hmmscan```. The hmmer software can be downloaded at http://hmmer.org/
++  [hmmer](http://hmmer.org/) (version >=3.0), has to contain ```hmmpress``` and ```hmmscan```. 
 
 
 <b>Note</b>, these dependencies need to be installed and added to environment variables of system (or user) beforehand, because ervdetective call them from the environment variables directly.
