@@ -48,7 +48,7 @@ The running of ```ervdetective``` relies on these softwares:
 
 +  [blast](https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/) (version >=2.9.0+), has to contain ```makeblastdb``` and ```tblastn```.
 
-+  [genometools](http://genometools.org/ or https://github.com/genometools/genometools) (version >=1.6.1), has to contain ```ltrharvest```. 
++  [genometools](http://genometools.org) (version >=1.6.1), has to contain ```ltrharvest```. 
 
 +  [hmmer](http://hmmer.org/) (version >=3.0), has to contain ```hmmpress``` and ```hmmscan```. 
 
