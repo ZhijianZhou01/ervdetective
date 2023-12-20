@@ -58,7 +58,7 @@ The running of ```ervdetective``` relies on these softwares:
 
 ## 3. Getting help
 
-Using ```ervdetective -h```
+ervdetective is a command line interface program, the help documentation can be get by ```ervdetective -h```
 
 | Parameter | Description |
 | --- | --- |
