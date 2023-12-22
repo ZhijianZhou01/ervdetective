@@ -23,7 +23,7 @@ ervdetective -h
 
 ### 1.2. Or local installation
 
-In addition to the  ```pip``` method, you can also install ervdetective manually using the file ```setup.py```. 
+In addition, you can also install ervdetective manually using the file ```setup.py```. 
 
 Firstly, download this repository, then, run:
 ```
