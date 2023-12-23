@@ -10,7 +10,7 @@
 
 ## 1. Download and install
 
-ervdetective is developed based on ```Python 3```, and you can get and install ervdetective in a variety of ways.
+ervdetective is a command-line-interface program developed based on ```Python 3```, and you can download and install ervdetective in a variety of ways.
 
 ### 1.1. pip method
 
