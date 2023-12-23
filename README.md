@@ -23,7 +23,7 @@ ervdetective -h
 
 ### 1.2. Or local installation
 
-In addition, ervdetective can be installed manually using the file using the file ```setup.py```. 
+In addition, ervdetective can also be installed manually using the file using the file ```setup.py```. 
 
 Firstly, download this repository, then, run:
 ```
