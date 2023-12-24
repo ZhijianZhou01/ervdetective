@@ -97,7 +97,7 @@ def starts():
 
     print("  Name: Endogenous retroviruses detective (ERVdetective)")
 
-    print("  Description: An automated pipeline for identification and annotation of endogenous retroviruses.")
+    print("  Description: An efficient pipeline for identification and annotation of endogenous retroviruses.")
 
     print("  Version: 1.0.1 (2021-11-09)")
 
