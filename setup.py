@@ -8,7 +8,7 @@ setuptools.setup(
   version="1.0.1",
   author="Zhi-Jian Zhou",
   author_email="zjzhou@hnu.edu.cn",
-  description="An automated pipeline for identification and annotation of endogenous retroviruses (ERVs)",
+  description="An efficient pipeline for identification and annotation of endogenous retroviruses (ERVs)",
   keywords="endogenous retroviruses, virus, evolution",
   long_description=long_description,
   long_description_content_type="text/markdown",
