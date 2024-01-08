@@ -14,7 +14,7 @@ ervdetective is a command-line-interface program developed based on ```Python 3`
 
 ### 1.1. pip method
 
-ervdetective has been distributed to the standard library of ```PyPI```, and can be easily installed by the tool ```pip```.
+ervdetective has been distributed to the standard library of ```PyPI``` (https://pypi.org/project/ervdetective/), and can be easily installed by the tool ```pip```.
 
 ```
 pip install ervdetective
