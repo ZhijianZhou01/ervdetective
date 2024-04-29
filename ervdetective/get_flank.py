@@ -40,10 +40,14 @@ class GetFlanks(object):
             each_blast_path = each_blast_path.strip()
 
             if each_blast_path.upper().find("RT") != -1:
-                matchlenth_threshold = 20
+                matchlenth_threshold = 50   # alignment length of aa
+
+            elif each_blast_path.upper().find("GAG") != -1:
+                matchlenth_threshold = 150  # alignment length of aa
 
             elif each_blast_path.upper().find("ENV") != -1:
-                matchlenth_threshold = 200
+                matchlenth_threshold = 200  # alignment length of aa
+
 
             blast_file = open(each_blast_path,"r",encoding="utf-8")
 
@@ -202,7 +206,7 @@ class GetFlanks(object):
 
                 sum_lsit.append(name)
 
-        #  Remove areas with full containment relations (leave wide areas)
+        #  Remove areas with full containment relations (leave wide areas) in same chain
         use_list = []
 
         for line1 in sum_lsit:
@@ -219,32 +223,31 @@ class GetFlanks(object):
                         if qury_start >= refer_start and qury_end <= refer_end:
                             break
 
-            else:
+            else: 
                 use_list.append(line1)
 
 
-        """
-        For sequences in the same region but on different chains, 
-        only one sequence is kept 
-        """
+
         ganjing = set()
+
         finnaly_use = []
 
         for each_seqname in use_list:
-            labels = each_seqname.replace(each_seqname.split("|")[-1], "")
-            if not labels in ganjing:
-                finnaly_use.append(each_seqname)
-                ganjing.add(labels)
+            each_seqname = each_seqname.strip()
 
-        with open(self.out_path, "w",encoding="utf-8") as ERV_15kb_file:
+            if not each_seqname in ganjing:
+                finnaly_use.append(each_seqname)
+                ganjing.add(each_seqname)
+
+        # get flanking sequence
+        with open(self.out_path, "w",encoding="utf-8") as erv_flanking:
             for line in finnaly_use:
 
-                #  Reverse complement the sequence on the negative strand
                 if line.split("|")[-1] == "complement":
-                    ERV_15kb_file.write(line + "\n"
+                    erv_flanking.write(line + "\n"
                                         + reversecomp_seq(
-                        seqs[line].strip()) + "\n")
+                        seqs[line].strip()) + "\n")   #  Reverse complement the sequence on the negative strand
                 else:
-                    ERV_15kb_file.write(line + "\n" + seqs[line] + "\n")
+                    erv_flanking.write(line + "\n" + seqs[line] + "\n")
 
 
