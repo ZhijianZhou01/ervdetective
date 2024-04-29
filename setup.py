@@ -7,7 +7,7 @@ with open("README.md", "r",encoding="utf-8") as fh:
 
 setuptools.setup(
   name="ervdetective",
-  version="1.0.1",
+  version="1.0.5",
   author="Zhi-Jian Zhou",
   author_email="zjzhou@hnu.edu.cn",
   description="An efficient pipeline for identification and annotation of endogenous retroviruses (ERVs)",
