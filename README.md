@@ -77,7 +77,7 @@ The help documentation can be get by entering ```ervdetective -h``` or ```ervdet
 |-t2 MAXTSD | The maximum length for each TSD site, default: 6.|
 |-motif MOTIF | Specify start-motif (2 nucleotides) and end-motif (2 nucleotides), default string: TGCA.|
 |-mis MISMOTIF | The maximum number of mismatches nucleotides in motif, default: 1.|
-|-ed EHMMER | The threshold of e-value using for HMMER search, default: 0.0001.|
+|-ed EHMMER | The threshold of e-value using for HMMER search, default: 1e-6.|
 |-n THREAD | The the number of threads used, default: 1.|
 |-p PREFIX | The the prefix of output file, default character: 'host'.|
 |-o OUTPUT | The path of output folder to store all the results.|
