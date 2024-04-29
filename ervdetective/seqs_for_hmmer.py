@@ -86,23 +86,24 @@ class GetSeqForHmmer(object):
                     erv_seq_contain[2:].translate(table=1))
                                           + "\n")
         
-                pairLTR_evesAA_file.write(">" + ltr_record_list[-3]
-                                          + "#ORF4" + "\n"
-                                          + str(
-                    erv_seq_contain.reverse_complement().translate(table=1))
-                                          + "\n")
-        
-                pairLTR_evesAA_file.write(">" + ltr_record_list[-3]
-                                          + "#ORF5" + "\n"
-                                          + str(
-                    erv_seq_contain.reverse_complement()[1:].translate(table=1))
-                                          + "\n")
-        
-                pairLTR_evesAA_file.write(">" + ltr_record_list[-3]
-                                          + "#ORF6" + "\n"
-                                          + str(
-                    erv_seq_contain.reverse_complement()[2:].translate(table=1))
-                                          + "\n")
+                # pairLTR_evesAA_file.write(">" + ltr_record_list[-3]
+                #                           + "#ORF4" + "\n"
+                #                           + str(
+                #     erv_seq_contain.reverse_complement().translate(table=1))
+                #                           + "\n")
+                #
+                # pairLTR_evesAA_file.write(">" + ltr_record_list[-3]
+                #                           + "#ORF5" + "\n"
+                #                           + str(
+                #     erv_seq_contain.reverse_complement()[1:].translate(table=1))
+                #                           + "\n")
+                #
+                # pairLTR_evesAA_file.write(">" + ltr_record_list[-3]
+                #                           + "#ORF6" + "\n"
+                #                           + str(
+                #     erv_seq_contain.reverse_complement()[2:].translate(table=1))
+                #                           + "\n")
+
         
         duplicate_removal_file.close()
         pairLTR_eves_file.close()
@@ -140,20 +141,21 @@ class GetSeqForHmmer(object):
                                        + str(seq_contain[2:].translate(table=1))
                                        + "\n")
         
-                no_pairLTR_seqAA.write(">" + key + "#ORF4" + "\n"
-                                       + str(
-                    seq_contain.reverse_complement().translate(table=1))
-                                       + "\n")
-        
-                no_pairLTR_seqAA.write(">" + key + "#ORF5" + "\n"
-                                       + str(
-                    seq_contain.reverse_complement()[1:].translate(table=1))
-                                       + "\n")
-        
-                no_pairLTR_seqAA.write(">" + key + "#ORF6" + "\n"
-                                       + str(
-                    seq_contain.reverse_complement()[2:].translate(table=1))
-                                       + "\n")
+                # no_pairLTR_seqAA.write(">" + key + "#ORF4" + "\n"
+                #                        + str(
+                #     seq_contain.reverse_complement().translate(table=1))
+                #                        + "\n")
+                #
+                # no_pairLTR_seqAA.write(">" + key + "#ORF5" + "\n"
+                #                        + str(
+                #     seq_contain.reverse_complement()[1:].translate(table=1))
+                #                        + "\n")
+                #
+                # no_pairLTR_seqAA.write(">" + key + "#ORF6" + "\n"
+                #                        + str(
+                #     seq_contain.reverse_complement()[2:].translate(table=1))
+                #                        + "\n")
+
         
         no_pairLTR_seq.close()
         no_pairLTR_seqAA.close()
@@ -182,20 +184,20 @@ def GetSeqForHmmer2(input_file, outnt, outAA):
                                + str(seq_contain[2:].translate(table=1))
                                + "\n")
 
-        no_pairLTR_seqAA.write(">" + key + "#ORF4" + "\n"
-                               + str(
-            seq_contain.reverse_complement().translate(table=1))
-                               + "\n")
-
-        no_pairLTR_seqAA.write(">" + key + "#ORF5" + "\n"
-                               + str(
-            seq_contain.reverse_complement()[1:].translate(table=1))
-                               + "\n")
-
-        no_pairLTR_seqAA.write(">" + key + "#ORF6" + "\n"
-                               + str(
-            seq_contain.reverse_complement()[2:].translate(table=1))
-                               + "\n")
+        # no_pairLTR_seqAA.write(">" + key + "#ORF4" + "\n"
+        #                        + str(
+        #     seq_contain.reverse_complement().translate(table=1))
+        #                        + "\n")
+        #
+        # no_pairLTR_seqAA.write(">" + key + "#ORF5" + "\n"
+        #                        + str(
+        #     seq_contain.reverse_complement()[1:].translate(table=1))
+        #                        + "\n")
+        #
+        # no_pairLTR_seqAA.write(">" + key + "#ORF6" + "\n"
+        #                        + str(
+        #     seq_contain.reverse_complement()[2:].translate(table=1))
+        #                       + "\n")
 
     no_pairLTR_seq.close()
     no_pairLTR_seqAA.close()
