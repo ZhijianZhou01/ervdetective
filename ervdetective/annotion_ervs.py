@@ -29,8 +29,7 @@ class PairLTRErvAnno(object):
        
         out_domain_annos = open(self.pairltr_ervs_anno,"w",encoding="utf-8")
 
-        out_domain_annos.write("##Number of ERVs" + "\t"
-                               + "Name of ERVs with paired-LTRs" + "\t"
+        out_domain_annos.write("##Name of ERVs with paired-LTRs" + "\t"
                                + "5'-LTR region" + "\t"
                                + "3'-LTR region" + "\t"
                                + "GAG gene" + "\t"
@@ -41,7 +40,6 @@ class PairLTRErvAnno(object):
                                + "INT gene"+ "\t"
                                + "ENV gene" + "\n")
 
-        annotation_sum = 1
 
         for line in domain_in_genome_file:
 
@@ -76,7 +74,7 @@ class PairLTRErvAnno(object):
                             pass
 
                         else:
-                            if line_list[n] != "not found":
+                            if line_list[n] != "not found" and line_list[n].find("relatively short") == -1:
                                 xx = (line_list[n].split(",")[-1]).split("(")[0]
                                 if xx == "":
                                     sites = \
@@ -103,7 +101,7 @@ class PairLTRErvAnno(object):
                                     flage = 1
 
                             else:
-                                line_record_list.append("not found")
+                                line_record_list.append(line_list[n])
 
 
                 elif strand == "complement":
@@ -127,7 +125,7 @@ class PairLTRErvAnno(object):
                             pass
 
                         else:
-                            if line_list[n] != "not found":
+                            if line_list[n] != "not found" and line_list[n].find("relatively short") == -1:
                                 xx = (line_list[n].split(",")[-1]).split("(")[0]
                                 if xx == "complement":
                                     sites = \
@@ -156,28 +154,26 @@ class PairLTRErvAnno(object):
                                     flage = 1
 
                             else:
-                                line_record_list.append("not found")
+                                line_record_list.append(line_list[n])
 
                 new_line = "\t".join(line_record_list)
 
-                out_domain_annos.write(self.out_refix + "_pairLTR_"
-                    "ERV" + str(annotation_sum) + "\t" + seq_name + "\t"
+                out_domain_annos.write(seq_name + "\t"
                     + new_line + "\n")
 
                 if flage == 1:
                     out_domain_annos.write(
                         "##Warn: the annotation and chain direction of '" +
-                        line.split("\t")[0]
-                        + "' maybe incorrect in file of 'domain_annotation_in_genome_final.txt'!" + "\n")  # 标记处理异常domain注释序列
+                        seq_name
+                        + "' needs to be checked in file of 'domain_annotation_in_genome_final.txt'!" + "\n")
 
-                annotation_sum += 1
 
         domain_in_genome_file.close()
         out_domain_annos.close()
 
 
 
-class PotentialErvAnno(object):
+class PotentialEveAnno(object):
     def __init__(self, map_duplicate_removal,
                  domain_in_potential_erv,
                  out_refix):
@@ -185,7 +181,7 @@ class PotentialErvAnno(object):
         self.domain_in_potential_erv = domain_in_potential_erv
         self.out_refix = out_refix
 
-        super(PotentialErvAnno, self).__init__()
+        super(PotentialEveAnno, self).__init__()
 
     def run(self):
 
@@ -194,8 +190,7 @@ class PotentialErvAnno(object):
         out_domain_annos = open(self.domain_in_potential_erv, "w",
                                 encoding="utf-8")
 
-        out_domain_annos.write("##Number of ERVs" + "\t"
-                               + "Name of potential ERVs without paired-LTRs" + "\t"
+        out_domain_annos.write("##Name of potential ERVLEs without paired-LTRs" + "\t"
                                + "GAG gene" + "\t"
                                + "DUT gene" + "\t"
                                + "AP gene" + "\t"
@@ -204,7 +199,6 @@ class PotentialErvAnno(object):
                                + "INT gene" + "\t"
                                + "ENV gene" + "\n")
 
-        annotation_sum = 1
 
         for line in domain_duplicate_removal:
 
@@ -223,7 +217,7 @@ class PotentialErvAnno(object):
                     start_site = int(seq_name.split("|")[1])
                     # end_site =int(seq_name.split("|")[2])
                     for n in range(1, len(line_list)):
-                        if line_list[n] != "not found":
+                        if line_list[n] != "not found" and line_list[n].find("relatively short") == -1:
                             xx = (line_list[n].split(",")[-1]).split("(")[0]
                             if xx == "":
                                 sites = (line_list[n].split("(")[1]).split(")")[
@@ -247,14 +241,14 @@ class PotentialErvAnno(object):
                                                         + str(domain_end) + ")")
                                 flage = 1
                         else:
-                            line_record_list.append("not found")
+                            line_record_list.append(line_list[n])
 
 
                 elif strand == "complement":
                     start_site = int(seq_name.split("|")[2])
                     for n in range(1, len(line_list)):
 
-                        if line_list[n] != "not found":
+                        if line_list[n] != "not found" and line_list[n].find("relatively short") == -1:
 
                             xx = (line_list[n].split(",")[-1]).split("(")[0]
                             if xx == "complement":
@@ -282,21 +276,19 @@ class PotentialErvAnno(object):
                                 flage = 1
 
                         else:
-                            line_record_list.append("not found")
+                            line_record_list.append(line_list[n])
 
                 new_line = "\t".join(line_record_list)
 
-                out_domain_annos.write(self.out_refix + "_potential_"
-                    "ERV" + str(annotation_sum) + "\t" + seq_name + "\t"
+                out_domain_annos.write(seq_name + "\t"
                     + new_line + "\n")
 
                 if flage == 1:
                     out_domain_annos.write(
                         "##Warn: the annotation and chain direction of '" +
-                        line.split("\t")[0]
-                        + "' maybe incorrect in file of 'domain_annotation_in_genome_final.txt'!" + "\n")  # 标记处理异常domain注释序列
+                        seq_name
+                        + "' needs to be checked in file of 'domain_annotation_in_genome_final.txt'!" + "\n")
 
-                annotation_sum += 1
 
         domain_duplicate_removal.close()
         out_domain_annos.close()
