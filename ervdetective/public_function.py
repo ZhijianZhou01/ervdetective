@@ -125,7 +125,7 @@ def best_domain(input_list,n):
 
         hit_domain = (hit_list[0] + "," + str(hit_list[1]) + "," + hit_list[2]
                             + "," + str(hit_list[3]) + "," + str(hit_list[4]))
-        # name of domain, c-Evalue, ORF, Start and end point , lenth of domain
+        # name of domain, c-Evalue, ORF, Start and end point, lenth of domain
 
 
     return hit_domain
@@ -191,50 +191,50 @@ def domain_locate_genome(seq_coordinates, seq_stand, domain_aa_range,orf):
             domain_in_strand = "same"
             site_range = "(" + str(genome_start) + ".." + str(genome_end) + ")"
 
-        elif orf == "ORF4":
-            domain_nt_start = 3 * (
-                        int(domain_aa_range.split("..")[0]) - 1) + 1
-            domain_nt_end = 3 * int(domain_aa_range.split("..")[1])
-
-            domain_nt_restart = seq_lenth - domain_nt_end + 1
-            domain_nt_reend = seq_lenth - domain_nt_start + 1
-
-            genome_start = seq_coordinates_start + domain_nt_restart - 1
-            genome_end = seq_coordinates_start + domain_nt_reend - 1
-
-            domain_in_strand = "complement"
-            site_range = ("complement(" + str(genome_start)
-                          + ".." + str(genome_end) + ")")
-
-        elif orf == "ORF5":
-            domain_nt_start = 3 * (
-                    int(domain_aa_range.split("..")[0]) - 1) + 1 + 1
-            domain_nt_end = 3 * int(domain_aa_range.split("..")[1]) + 1
-
-            domain_nt_restart = seq_lenth - domain_nt_end + 1
-            domain_nt_reend = seq_lenth - domain_nt_start + 1
-
-            genome_start = seq_coordinates_start + domain_nt_restart - 1
-            genome_end = seq_coordinates_start + domain_nt_reend - 1
-
-            domain_in_strand = "complement"
-            site_range = ("complement(" + str(genome_start)
-                          + ".." + str(genome_end) + ")")
-
-        elif orf == "ORF6":
-            domain_nt_start = 3 * (
-                    int(domain_aa_range.split("..")[0]) - 1) + 1 + 2
-            domain_nt_end = 3 * int(domain_aa_range.split("..")[1]) + 2
-
-            domain_nt_restart = seq_lenth - domain_nt_end + 1
-            domain_nt_reend = seq_lenth - domain_nt_start + 1
-
-            genome_start = seq_coordinates_start + domain_nt_restart - 1
-            genome_end = seq_coordinates_start + domain_nt_reend - 1
-
-            domain_in_strand = "complement"
-            site_range = ("complement(" + str(genome_start)
-                          + ".." + str(genome_end) + ")")
+        # elif orf == "ORF4":
+        #     domain_nt_start = 3 * (
+        #                 int(domain_aa_range.split("..")[0]) - 1) + 1
+        #     domain_nt_end = 3 * int(domain_aa_range.split("..")[1])
+        #
+        #     domain_nt_restart = seq_lenth - domain_nt_end + 1
+        #     domain_nt_reend = seq_lenth - domain_nt_start + 1
+        #
+        #     genome_start = seq_coordinates_start + domain_nt_restart - 1
+        #     genome_end = seq_coordinates_start + domain_nt_reend - 1
+        #
+        #     domain_in_strand = "complement"
+        #     site_range = ("complement(" + str(genome_start)
+        #                   + ".." + str(genome_end) + ")")
+        #
+        # elif orf == "ORF5":
+        #     domain_nt_start = 3 * (
+        #             int(domain_aa_range.split("..")[0]) - 1) + 1 + 1
+        #     domain_nt_end = 3 * int(domain_aa_range.split("..")[1]) + 1
+        #
+        #     domain_nt_restart = seq_lenth - domain_nt_end + 1
+        #     domain_nt_reend = seq_lenth - domain_nt_start + 1
+        #
+        #     genome_start = seq_coordinates_start + domain_nt_restart - 1
+        #     genome_end = seq_coordinates_start + domain_nt_reend - 1
+        #
+        #     domain_in_strand = "complement"
+        #     site_range = ("complement(" + str(genome_start)
+        #                   + ".." + str(genome_end) + ")")
+        #
+        # elif orf == "ORF6":
+        #     domain_nt_start = 3 * (
+        #             int(domain_aa_range.split("..")[0]) - 1) + 1 + 2
+        #     domain_nt_end = 3 * int(domain_aa_range.split("..")[1]) + 2
+        #
+        #     domain_nt_restart = seq_lenth - domain_nt_end + 1
+        #     domain_nt_reend = seq_lenth - domain_nt_start + 1
+        #
+        #     genome_start = seq_coordinates_start + domain_nt_restart - 1
+        #     genome_end = seq_coordinates_start + domain_nt_reend - 1
+        #
+        #     domain_in_strand = "complement"
+        #     site_range = ("complement(" + str(genome_start)
+        #                   + ".." + str(genome_end) + ")")
 
 
     elif seq_stand == "complement":
@@ -283,35 +283,35 @@ def domain_locate_genome(seq_coordinates, seq_stand, domain_aa_range,orf):
             site_range = ("complement(" + str(genome_start)
                           + ".." + str(genome_end) + ")")
 
-        elif orf == "ORF4":
-            domain_nt_start = 3 * (int(domain_aa_range.split("..")[0]) - 1) + 1
-            domain_nt_end = 3 * int(domain_aa_range.split("..")[1])
-
-            genome_start = seq_coordinates_start + domain_nt_start - 1
-            genome_end = seq_coordinates_start + domain_nt_end - 1
-
-            domain_in_strand = "same"
-            site_range = "(" + str(genome_start) + ".." + str(genome_end) + ")"
-
-        elif orf == "ORF5":
-            domain_nt_start = 3 * (int(domain_aa_range.split("..")[0]) - 1) + 1 + 1
-            domain_nt_end = 3 * int(domain_aa_range.split("..")[1]) + 1
-
-            genome_start = seq_coordinates_start + domain_nt_start - 1
-            genome_end = seq_coordinates_start + domain_nt_end - 1
-
-            domain_in_strand = "same"
-            site_range = "(" + str(genome_start) + ".." + str(genome_end) + ")"
-
-        elif orf == "ORF6":
-            domain_nt_start = 3 * (int(domain_aa_range.split("..")[0]) - 1) + 1 + 2
-            domain_nt_end = 3 * int(domain_aa_range.split("..")[1]) + 2
-
-            genome_start = seq_coordinates_start + domain_nt_start - 1
-            genome_end = seq_coordinates_start + domain_nt_end - 1
-
-            domain_in_strand = "same"
-            site_range = "(" + str(genome_start) + ".." + str(genome_end) + ")"
+        # elif orf == "ORF4":
+        #     domain_nt_start = 3 * (int(domain_aa_range.split("..")[0]) - 1) + 1
+        #     domain_nt_end = 3 * int(domain_aa_range.split("..")[1])
+        #
+        #     genome_start = seq_coordinates_start + domain_nt_start - 1
+        #     genome_end = seq_coordinates_start + domain_nt_end - 1
+        #
+        #     domain_in_strand = "same"
+        #     site_range = "(" + str(genome_start) + ".." + str(genome_end) + ")"
+        #
+        # elif orf == "ORF5":
+        #     domain_nt_start = 3 * (int(domain_aa_range.split("..")[0]) - 1) + 1 + 1
+        #     domain_nt_end = 3 * int(domain_aa_range.split("..")[1]) + 1
+        #
+        #     genome_start = seq_coordinates_start + domain_nt_start - 1
+        #     genome_end = seq_coordinates_start + domain_nt_end - 1
+        #
+        #     domain_in_strand = "same"
+        #     site_range = "(" + str(genome_start) + ".." + str(genome_end) + ")"
+        #
+        # elif orf == "ORF6":
+        #     domain_nt_start = 3 * (int(domain_aa_range.split("..")[0]) - 1) + 1 + 2
+        #     domain_nt_end = 3 * int(domain_aa_range.split("..")[1]) + 2
+        #
+        #     genome_start = seq_coordinates_start + domain_nt_start - 1
+        #     genome_end = seq_coordinates_start + domain_nt_end - 1
+        #
+        #     domain_in_strand = "same"
+        #     site_range = "(" + str(genome_start) + ".." + str(genome_end) + ")"
 
     return (domain_in_strand,site_range)
 
