@@ -33,6 +33,7 @@ class SimplyGFF(object):
         for anno in annotations:
             anno_list = anno.strip().split("\t")
 
+
             if anno_list[2] == "repeat_region":
                 region = anno_list[3] + ".." + anno_list[4]
                 name = anno_list[0] + "|" + region
@@ -100,9 +101,10 @@ class SimplyGFF(object):
 
             ltr1_start = int(repeat_region_range.split("..")[0])
             # print(ltr1_start)
-            ltr1_end = int(ltr1_range.split("..")[1]) + self.mintsd
+            
+            ltr1_end = int(ltr1_range.split("..")[1])
 
-            ltr2_start = int(ltr2_range.split("..")[0]) - self.mintsd
+            ltr2_start = int(ltr2_range.split("..")[0])
             ltr2_end = int(repeat_region_range.split("..")[1])
 
             # whether it is on the complementary chain
@@ -111,13 +113,15 @@ class SimplyGFF(object):
                 erv_start = seq_lenth - int(repeat_region_range.split("..")[1]) + 1
                 erv_end = seq_lenth - int(repeat_region_range.split("..")[0]) + 1
 
-                ltr1_start = seq_lenth - (int(ltr1_range.split("..")[1])
-                                          + self.mintsd) + 1
+
+                ltr1_start = seq_lenth - int(ltr1_range.split("..")[1]) + 1
+
                 ltr1_end = seq_lenth - int(repeat_region_range.split("..")[0]) + 1
 
                 ltr2_start = seq_lenth - int(repeat_region_range.split("..")[1]) + 1
-                ltr2_end = seq_lenth - (int(ltr2_range.split("..")[0])
-                                        - self.mintsd) + 1
+
+
+                ltr2_end = seq_lenth - int(ltr2_range.split("..")[0]) + 1
 
 
             erv_start_site = start_nt + erv_start - 1
@@ -136,18 +140,19 @@ class SimplyGFF(object):
                         + qury_seq_name.split("|")[-1])
 
 
+
             out_simplify_file.write(
                 qury_seq_name + "\t" + k.split("|")[1] + "\t" + y[0] + "\t"
                 + str(int(repeat_region_range.split("..")[0])) + ".."
-                + str(int(ltr1_range.split("..")[1]) + self.mintsd ) + "\t"
-                + str(int(ltr2_range.split("..")[0]) - self.mintsd ) + ".."
+                + str(int(ltr1_range.split("..")[1])) + "\t"
+                + str(int(ltr2_range.split("..")[0])) + ".."
                 + str(int(repeat_region_range.split("..")[1]))
 
                 + "\t" * 2 + seq_name_reset + "\t"
                 + str(ltr1_start_site) + ".." + str(ltr1_end_site) + "\t"
                 + str(ltr2_start_site) + ".." + str(ltr2_end_site) + "\n")
 
-            # Add self.mintsd bases on both sides of LTR
+
 
         out_simplify_file.close()
 
@@ -162,14 +167,12 @@ class SimplyGFF(object):
                 out_duplicate_removal.write(line)
             else:
                 seq_name = line.split("\t")[-3]
-                label = (seq_name.split("|")[0] + "|"
-                         + seq_name.split("|")[1] + "|"
-                         + seq_name.split("|")[2])
+    
 
-                if label not in lines_seen:
+                if seq_name not in lines_seen: 
                     out_duplicate_removal.write(line)
 
-                    lines_seen.add(label)
+                    lines_seen.add(seq_name)
 
         simplify_gff3.close()
         out_duplicate_removal.close()
