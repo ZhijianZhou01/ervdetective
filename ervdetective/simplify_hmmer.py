@@ -6,16 +6,40 @@ Email: zjzhou@hnu.edu.cn
 Time: 2021/11/10 23:03
 
 """
+retroviridae_list = ["alpharetrovirus-related",
+                     "betaretrovirus-related",
+                     "gammaretrovirus-related",
+                     "deltaretrovirus-related",
+                     "epsilonretrovirus-related",
+                     "lentivirus-related",
+                     "spumaretrovirinae-related",
+                     "retroviridae-related"]
+
 
 from public_function import best_domain
 
 class SimplyHMMER(object):
-    def __init__(self, hmmer_file, out_simplify, header_str):
+    def __init__(self, hmmer_file, out_simplify, header_str,para_dic):
         super(SimplyHMMER,self).__init__()
 
         self.hmmer_result_path = hmmer_file
         self.hmmer_simplify_path = out_simplify
         self.header_str = header_str
+
+        self.para_dic = para_dic
+
+        # print(self.para_dic["GAG_length"])
+        #
+        # print(self.para_dic["PRO_length"])
+        #
+        # print(self.para_dic["RT_length"])
+        #
+        # print(self.para_dic["RNaseH_length"])
+        #
+        # print(self.para_dic["INT_length"])
+        #
+        # print(self.para_dic["ENV_length"])
+
 
     def run(self):
 
@@ -37,7 +61,7 @@ class SimplyHMMER(object):
 
                 new_line = []
 
-                domain = line_list[0]  # record of predicted domain
+                domain = line_list[0] + "-related" # record of predicted domain
 
                 ERV_candidate_seqname = (line_list[3].split("#")[0])
 
@@ -51,7 +75,7 @@ class SimplyHMMER(object):
 
                 end_aa = (int(line_list[18]))
 
-                domain_aa_lenth = end_aa - start_aa + 1
+                domain_aa_lenth = end_aa - start_aa + 1 
 
                 new_line.append(domain)
                 new_line.append(c_Evalue)
@@ -64,9 +88,11 @@ class SimplyHMMER(object):
                     sum_dict[ERV_candidate_seqname] = []
                 sum_dict[ERV_candidate_seqname].append(new_line)
 
-        for key in sum_dict:
+        for key in sum_dict: 
 
             line_flage = "False"
+
+            retroviridae_flage = True
 
             # print(key, sum_dict[key])
             hit_list = sum_dict[key]
@@ -104,35 +130,86 @@ class SimplyHMMER(object):
                 elif match_domain.split("_")[0] == "ENV":
                     ENV_list.append(each_hit)
 
+
             hit_GAG = best_domain(GAG_list, 1)
-            if hit_GAG != "not found":
-                line_flage = "True"
 
             hit_DUT = best_domain(DUT_list, 1)
+
+            hit_AP = best_domain(AP_list, 1)
+
+            hit_RT = best_domain(RT_lsit, 1)
+
+            hit_RNaseH = best_domain(RNaseH_list, 1)
+
+            hit_INT = best_domain(INT_list, 1)
+
+            hit_ENV = best_domain(ENV_list, 1)
+
+
+            if hit_GAG != "not found":
+                if int(hit_GAG.split(",")[-1]) >= self.para_dic["GAG_length"]:
+                    line_flage = "True"
+
+                    classify = hit_GAG.split(",")[0].split("_")[-1]
+
+                    if classify not in retroviridae_list:
+                        retroviridae_flage = False
+
+                else:
+                    hit_GAG = "relatively short" + " (" + hit_GAG.split(",")[-1] + "aa)"
+
+
+
             if hit_DUT != "not found":
                 line_flage = "True"
 
-            hit_AP = best_domain(AP_list, 1)
+
             if hit_AP != "not found":
-                line_flage = "True"
+                if int(hit_AP.split(",")[-1]) >= self.para_dic["PRO_length"]:
+                    line_flage = "True"
 
-            hit_RT = best_domain(RT_lsit, 1)
+                else:
+                    hit_AP = "relatively short" +  " (" + hit_AP.split(",")[-1] + "aa)"
+
+
             if hit_RT != "not found":
-                line_flage = "True"
+                if int(hit_RT.split(",")[-1]) >= self.para_dic["RT_length"]:
+                    line_flage = "True"
 
-            hit_RNaseH = best_domain(RNaseH_list, 1)
+                    classify = hit_RT.split(",")[0].split("_")[-1]
+
+                    if classify not in retroviridae_list:
+                        retroviridae_flage = False
+
+                else:
+                    hit_RT = "relatively short" +  " (" + hit_RT.split(",")[-1] + "aa)"
+
+
             if hit_RNaseH != "not found":
-                line_flage = "True"
+                if int(hit_RNaseH.split(",")[-1]) >= self.para_dic["RNaseH_length"]:
+                    line_flage = "True"
 
-            hit_INT = best_domain(INT_list, 1)
+                else:
+                    hit_RNaseH = "relatively short" +  " (" + hit_RNaseH.split(",")[-1] + "aa)"
+
+
             if hit_INT != "not found":
-                line_flage = "True"
+                if int(hit_INT.split(",")[-1]) >= self.para_dic["INT_length"]:
+                    line_flage = "True"
 
-            hit_ENV = best_domain(ENV_list, 1)
+                else:
+                    hit_INT = "relatively short" + " (" + hit_INT.split(",")[-1] + "aa)"
+
+
             if hit_ENV != "not found":
-                line_flage = "True"
+                if int(hit_ENV.split(",")[-1]) >= self.para_dic["ENV_length"]:
+                    line_flage = "True"
 
-            if line_flage == "True":
+                else:
+                    hit_ENV = "relatively short" + " (" + hit_ENV.split(",")[-1] + "aa)"
+
+
+            if line_flage == "True" and retroviridae_flage == True:
                 HMMER_simplify_file.write(
                     key + "\t" + hit_GAG + "\t" + hit_DUT + "\t" + hit_AP
                     + "\t" + hit_RT + "\t" + hit_RNaseH + "\t" + hit_INT
