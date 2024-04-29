@@ -89,12 +89,11 @@ class GetPairLTRervs(object):
                                     + five_ltr_seq + "\n"
                                     + ">" + seq_name + "_three_ltr" + "\n"
                                     + three_ltr_seq + "\n")
-        
-                seq_name_JC = seq_name.replace("|" + seq_name.split("|")[-1], "")
+
 
                 for n in range(4,len(line_list)):
                     domain_record = line_list[n].strip()
-                    if domain_record != "not found":
+                    if domain_record != "not found" and domain_record.find("relatively short") == -1:
                         domain_name = (domain_record.split(",")[0]).split("_")[0]
         
                         domain_range = (domain_record.split("(")[-1]).strip(")")
@@ -113,7 +112,7 @@ class GetPairLTRervs(object):
                         out_domain = open(self.doamin_seq_dir + r"/" + domain_name + ".fasta", "a",
                             encoding="utf-8")
         
-                        out_domain.write(">" + seq_name_JC + "_" + domain_name + "\n"
+                        out_domain.write(">" + seq_name + "_" + domain_name + "\n"
                               +  domain_seq + "\n")
 
         domain_in_genome_file.close()
@@ -121,7 +120,7 @@ class GetPairLTRervs(object):
         out_pair_LTRs.close()
 
 
-class GetPotentialErvs(object):
+class GetPotentialEves(object):
     def __init__(self, map_duplicate_removal, host_path,
                  doamin_seq_dir, erv_seq_path):
         """
@@ -131,7 +130,7 @@ class GetPotentialErvs(object):
         :param doamin_seq_dir:
         :param erv_seq_path:
         """
-        super(GetPotentialErvs, self).__init__()
+        super(GetPotentialEves, self).__init__()
 
         self.map_duplicate_removal = map_duplicate_removal
         self.host_path = host_path
@@ -168,13 +167,11 @@ class GetPotentialErvs(object):
 
                 erv_seq.write(">" + seq_name + "\n" + ervs_seq_contain + "\n")
 
-                seq_name_JC = seq_name.replace("|" + seq_name.split("|")[-1],
-                                               "")
 
                 for n in range(1, len(line_list)):
                     domain_record = line_list[n].strip()
-                    if domain_record != "not found":
-                        domain_seq = ""
+                    if domain_record != "not found" and domain_record.find("relatively short") == -1:
+
                         domain_name = (domain_record.split(",")[0]).split("_")[
                             0]
 
@@ -197,7 +194,7 @@ class GetPotentialErvs(object):
                                           encoding="utf-8")
 
                         out_domain.write(
-                            ">" + seq_name_JC + "_" + domain_name + "\n"
+                            ">" + seq_name + "_" + domain_name + "\n"
                             + domain_seq + "\n")
 
         domain_duplicate_removal.close()
