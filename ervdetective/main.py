@@ -247,7 +247,7 @@ def starts():
 
     print("  Description: An efficient pipeline for identification and annotation of endogenous retroviruses.")
 
-    print("  Version: 1.0.5 (2024-04-28)")
+    print("  Version: 1.0.6 (2024-04-29)")
 
     print("  Author: Zhi-Jian Zhou")
 
