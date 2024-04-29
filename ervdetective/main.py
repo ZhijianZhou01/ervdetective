@@ -10,7 +10,6 @@ Time: 2021/11/9 15:19
 import sys
 import os
 import platform
-from colorama import Fore, init
 
 
 app_dir = os.path.dirname(os.path.realpath(__file__))
@@ -27,16 +26,15 @@ import time
 import subprocess
 import zipfile
 import argparse
-import psutil
 
 from datetime import datetime
 from get_flank import GetFlanks
 from simplify_gff3 import SimplyGFF
 from seqs_for_hmmer import GetSeqForHmmer,GetSeqForHmmer2
 from simplify_hmmer import SimplyHMMER
-from map_genome import PairLTRervMap, NoPairLTRervMap
-from get_ervs import GetPairLTRervs, GetPotentialErvs
-from annotion_ervs import PairLTRErvAnno, PotentialErvAnno
+from map_genome import PairLTRervMap, NoPairLTReveMap
+from get_ervs import GetPairLTRervs, GetPotentialEves
+from annotion_ervs import PairLTRErvAnno, PotentialEveAnno
 from public_function import make_dir,hmmer_contain,get_all_path
 
 
@@ -48,11 +46,11 @@ from public_function import make_dir,hmmer_contain,get_all_path
 # gt_execute = app_dir + "/external_program/GT/bin/gt"
 # hmmscan_execute = app_dir + "/external_program/HMMER/bin/hmmscan"
 
-makeblastdb_execute = "makeblastdb"   # from blast
-tblastn_execute = "tblastn"           # from blast
-gt_execute = "gt"                     # from genometools
-hmmpress_execute = "hmmpress"         # from hmmer
-hmmscan_execute = "hmmscan"           # from hmmer
+makeblastdb_execute = "makeblastdb"     # from blast
+tblastn_execute = "tblastn"             # from blast
+gt_execute = "gt"                       # from genometools
+hmmpress_execute = "hmmpress"           # from hmmer
+hmmscan_execute = "hmmscan"             # from hmmer
 
 
 
@@ -65,6 +63,7 @@ if platform.system().lower() == "windows":
 
 
 
+
 #  ***** Built-in database *****
 
 ERVprofiles_zip = app_dir + "/Internal_database/ERVprofiles/ERVprofile.zip"
@@ -74,21 +73,170 @@ probe_dir =  app_dir + "/Internal_database/probe"
 
 
 example_use = r'''
-{}----------------☆ Example of use ☆-----------------{}
+----------------☆ Example of use ☆-----------------
 
 ervdetective -i myotis_lucifugus.fna -p myotis_lucifugus -o output
   
-{}----------------------☆  End  ☆---------------------{}
+----------------------☆  End  ☆---------------------
 
-'''.format(Fore.GREEN, Fore.RESET, Fore.GREEN, Fore.RESET)
+'''
 
 
+"""
 def calculate_memory():
     pid = os.getpid()
     p = psutil.Process(pid)
     info = p.memory_full_info()
     memory = info.uss / 1024 / 1024
     return memory
+"""
+
+
+# ###  *** Step 0, Processing input parameters  **
+
+def parameter():
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        prog="ervdetective",
+        description="",
+        epilog=example_use)
+
+    parser.add_argument(
+        "-i", dest="host",
+        help="The file-path of host genome sequence, the suffix is generally *.fna, *.fas, *.fasta.",
+        default="")
+
+    parser.add_argument(
+        "-n", dest="thread",
+        help="Specify the number of threads used, default: 1.",
+        type=int,
+        default=1)
+
+    parser.add_argument(
+        "-p", dest="prefix",
+        help="The prefix of output file, default character: 'host'.",
+        type=str,
+        default="host")
+
+    parser.add_argument(
+        "-o", dest="output",
+        help="The path of output folder to store all the results.",
+        default="")
+
+    parser.add_argument(
+        "-eb", dest="eblast",
+        help="Specify threshold of e-value for BLAST search, default: 1e-5.",
+        type=float,
+        default=0.00001)
+
+    parser.add_argument(
+        "-f", dest="flank",
+        help="The length of extended flank sequence on either side of "
+             "the blast hit-site, default: 15000.",
+        type=int,
+        default=15000)
+
+    parser.add_argument(
+        "-l1", dest="minltr",
+        help="Specify minimum length of LTR, default: 100.",
+        type=int,
+        default=100)
+
+    parser.add_argument(
+        "-l2", dest="maxltr",
+        help="Specify maximum length of LTR, default: 1000.",
+        type=int,
+        default=1000)
+
+    parser.add_argument(
+        "-s", dest="ltrsimilar",
+        help="Specify threshold(%%) of the similarity of paired LTRs, default: 80.",
+        type=float,
+        default=80)
+
+    parser.add_argument(
+        "-d1", dest="mindistltr",
+        help="The minimum interval of paired-LTRs start-positions, default: 1000.",
+        type=int,
+        default=1000)
+
+    parser.add_argument(
+        "-d2", dest="maxdistltr",
+        help="The maximum interval of paired-LTRs start-positions, default: 15000.",
+        type=int,
+        default=15000)
+
+    parser.add_argument(
+        "-t1", dest="mintsd",
+        help="The minimum length for each TSD site, default: 4.",
+        type=int,
+        default=4)
+
+    parser.add_argument(
+        "-t2", dest="maxtsd",
+        help="The maximum length for each TSD site, default: 6.",
+        type=int,
+        default=6)
+
+    parser.add_argument(
+        "-motif", dest="motif",
+        help="Specify start-motif (2 nucleotides) and end-motif (2 nucleotides), default string: TGCA.",
+        type=str,
+        default="TGCA")
+
+    parser.add_argument(
+        "-mis", dest="mismotif",
+        help="The maximum number of mismatches nucleotides in motif, default: 1.",
+        type=int,
+        default=1)
+
+    parser.add_argument(
+        "-ed", dest="ehmmer",
+        help="Specify threshold of e-value using for HMMER search, default: 1e-6.",
+        type=float,
+        default=0.000001)
+
+    parser.add_argument(
+        "--gag", dest="GAG_length",
+        help="The threshold of length of GAG protein in HMMER search, default: 250 aa.",
+        type=int,
+        default=250)
+
+    parser.add_argument(
+        "--pro", dest="PRO_length",
+        help="The threshold of length of PRO protein in HMMER search, default: 50 aa.",
+        type=int,
+        default=50)
+
+    parser.add_argument(
+        "--rt", dest="RT_length",
+        help="The threshold of length of RT protein in HMMER search, default: 150 aa.",
+        type=int,
+        default=150)
+
+    parser.add_argument(
+        "--rh", dest="RNaseH_length",
+        help="The threshold of length of RNaseH protein in HMMER search, default: 65 aa.",
+        type=int,
+        default=65)
+
+    parser.add_argument(
+        "--int", dest="INT_length",
+        help="The threshold of length of INT protein in HMMER search, default: 150 aa.",
+        type=int,
+        default=150)
+
+    parser.add_argument(
+        "--env", dest="ENV_length",
+        help="The threshold of length of ENV protein in HMMER search, default: 250 aa.",
+        type=int,
+        default=250)
+
+
+
+    theargs = parser.parse_args(sys.argv[1:])
+
+    return theargs
 
 
 def starts():
@@ -99,124 +247,11 @@ def starts():
 
     print("  Description: An efficient pipeline for identification and annotation of endogenous retroviruses.")
 
-    print("  Version: 1.0.1 (2021-11-09)")
+    print("  Version: 1.0.5 (2024-04-28)")
 
     print("  Author: Zhi-Jian Zhou")
 
     print("-------------------------------------------------" + "\n")
-
-
-
-    # ###  *** Step 0, Processing input parameters  **
-
-    def parameter():
-        parser = argparse.ArgumentParser(
-            formatter_class=argparse.RawDescriptionHelpFormatter,
-            prog="ervdetective",
-            description="",
-            epilog=example_use)
-
-        parser.add_argument(
-            "-i", dest="host",
-            help="The file-path of host genome sequence, the suffix is generally *.fna, *.fas, *.fasta.",
-            default="")
-
-        parser.add_argument(
-            "-eb", dest="eblast",
-            help="Specify threshold of e-value for BLAST search, default: 0.0001.",
-            type=float,
-            default=0.0001)
-
-        parser.add_argument(
-            "-f", dest="flank",
-            help="Specify length of extended flank sequence on either side of "
-                 "the blast hit-site, default: 15000.",
-            type=int,
-            default=15000)
-
-        parser.add_argument(
-            "-l1", dest="minltr",
-            help="Specify minimum length of LTR, default: 100.",
-            type=int,
-            default=100)
-
-        parser.add_argument(
-            "-l2", dest="maxltr",
-            help="Specify maximum length of LTR, default: 1000.",
-            type=int,
-            default=1000)
-
-        parser.add_argument(
-            "-s", dest="ltrsimilar",
-            help="Specify threshold(%%) of the similarity of paired LTRs, default: 80.",
-            type=float,
-            default=80)
-
-        parser.add_argument(
-            "-d1", dest="mindistltr",
-            help="Specify minimum interval of paired-LTRs start-positions, default: 1000.",
-            type=int,
-            default=1000)
-
-        parser.add_argument(
-            "-d2", dest="maxdistltr",
-            help="Specify maximum interval of paired-LTRs start-positions, default: 15000.",
-            type=int,
-            default=15000)
-
-
-        parser.add_argument(
-            "-t1", dest="mintsd",
-            help="Specify minimum length for each TSD site, default: 4.",
-            type=int,
-            default=4)
-
-        parser.add_argument(
-            "-t2", dest="maxtsd",
-            help="Specify maximum length for each TSD site, default: 6.",
-            type=int,
-            default=6)
-
-
-        parser.add_argument(
-            "-motif", dest="motif",
-            help="Specify start-motif (2 nucleotides) and end-motif (2 nucleotides), default string: TGCA.",
-            type=str,
-            default="TGCA")
-
-        parser.add_argument(
-            "-mis", dest="mismotif",
-            help="Specify maximum number of mismatches nucleotides in motif, default: 1.",
-            type=int,
-            default=1)
-
-        parser.add_argument(
-            "-ed", dest="ehmmer",
-            help="Specify threshold of e-value using for HMMER search, default: 0.0001.",
-            type=float,
-            default=0.0001)
-
-        parser.add_argument(
-            "-n", dest="thread",
-            help="Specify the number of threads used, default: 1.",
-            type=int,
-            default=1)
-
-        parser.add_argument(
-            "-p", dest="prefix",
-            help="Specify the prefix of output file, default character: 'host'.",
-            type=str,
-            default="host")
-
-        parser.add_argument(
-            "-o", dest="output",
-            help="The path of output folder to store all the results.",
-            default="")
-
-        theargs = parser.parse_args(sys.argv[1:])
-
-        return theargs
-
 
 
     myargs = parameter()
@@ -258,6 +293,18 @@ def starts():
     parameter_dic["motifmis"] = str(myargs.mismotif)
 
     parameter_dic["HmmerE"] = str(myargs.ehmmer)
+
+    parameter_dic["GAG_length"] = int(myargs.GAG_length)
+
+    parameter_dic["PRO_length"] = int(myargs.PRO_length)
+
+    parameter_dic["RT_length"] = int(myargs.RT_length)
+
+    parameter_dic["RNaseH_length"] = int(myargs.RNaseH_length)
+
+    parameter_dic["INT_length"] = int(myargs.INT_length)
+
+    parameter_dic["ENV_length"] = int(myargs.ENV_length)
 
 
 
@@ -564,7 +611,9 @@ def starts():
 
     ##  **Step 5.1 annotation of ervs with paired-LTRs (seq_with_ltrs_aa) **
 
-    if LTRharvest_out_size != 0:  # 如果存在成对LTR
+    pairltr_ervs_map_genome = ""
+
+    if LTRharvest_out_size != 0: 
 
         hmmer_result_dir = run_log_dir + "/Record5_HMMER_analysis"
         make_dir(hmmer_result_dir)
@@ -628,7 +677,7 @@ def starts():
 
             simp_hmmer1 = SimplyHMMER(seqs_paired_LTRs_hmmer,
                                       seqs_paired_LTRs_hmmer_simplify,
-                                      hmmer_head_pairedLTR)
+                                      hmmer_head_pairedLTR,parameter_dic)
             simp_hmmer1.run()
 
             # * domian map to genome *
@@ -692,7 +741,7 @@ def starts():
 
 
 
-    ##  ** 5.2 annotation of potential ERVs whitout paired-LTRs
+    ##  ** 5.2 annotation of potential ERVLEs whitout paired-LTRs
     no_pairLTR_flankseqaa_size = os.path.getsize(flank_without_ltrs_aa)
 
     if no_pairLTR_flankseqaa_size != 0:
@@ -720,7 +769,7 @@ def starts():
                         + ERVprofiles_path + " " + flank_without_ltrs_aa
                         + " > " + no_LTR_flank_hmmer_log)
 
-        print("\n" + ">>> Start HMMER search for ERVs without paired-LTRs...")
+        print("\n" + ">>> Start HMMER search for ERVLEs without paired-LTRs...")
         hmmer2_process = subprocess.Popen(hmmer_commd2,
                                           stdout=subprocess.PIPE,
                                           stderr=subprocess.STDOUT,
@@ -761,7 +810,7 @@ def starts():
 
             simp_hmmer2 = SimplyHMMER(no_LTR_flank_hmmer_su,
                                       no_LTR_flank_hmmer_simplify,
-                                      hmmer_head_noLTRs)
+                                      hmmer_head_noLTRs,parameter_dic)
             simp_hmmer2.run()
 
             # * domian map to genome *
@@ -770,7 +819,7 @@ def starts():
             make_dir(annotation_dir)
 
             noLTR_flank_annotation_dir = (annotation_dir
-                                          + "/ERVs_without_paired_LTRs")
+                                          + "/ERVLEs_without_paired_LTRs")
 
             make_dir(noLTR_flank_annotation_dir)
 
@@ -782,7 +831,8 @@ def starts():
                                          + parameter_dic["out_prefix"]
                                          + "_domain_annotation_in_genome_final.txt")
 
-            domain_in_genome_map2 = NoPairLTRervMap(no_LTR_flank_hmmer_simplify,
+            domain_in_genome_map2 = NoPairLTReveMap(pairltr_ervs_map_genome,
+                                                    no_LTR_flank_hmmer_simplify,
                                                     noLTR_flank_map_genome,
                                                     out_map_duplicate_removal)
             domain_in_genome_map2.run()
@@ -796,9 +846,9 @@ def starts():
             make_dir(doamin_seq_dir2)
             potential_erv_path = (noLTR_flank_annotation_dir + "/"
                                   + parameter_dic["out_prefix"]
-                                  + "_extracted_potential_ERVs.fas")
+                                  + "_extracted_potential_ERVLEs.fas")
 
-            get_potential_erv = GetPotentialErvs(out_map_duplicate_removal,
+            get_potential_erv = GetPotentialEves(out_map_duplicate_removal,
                                                  parameter_dic["host_path"],
                                                  doamin_seq_dir2,
                                                  potential_erv_path)
@@ -809,9 +859,9 @@ def starts():
             #  * annotate domain on the potential ervs *
 
             domain_in_potential_erv = (noLTR_flank_annotation_dir
-                                    + "/domain_annotation_in_potential_ERVs.txt")
+                                    + "/domain_annotation_in_potential_ERVLEs.txt")
 
-            potential_ervs_annotation = PotentialErvAnno(out_map_duplicate_removal,
+            potential_ervs_annotation = PotentialEveAnno(out_map_duplicate_removal,
                                                          domain_in_potential_erv,
                                                          parameter_dic["out_prefix"])
             potential_ervs_annotation.run()
@@ -821,8 +871,8 @@ def starts():
 
         else:
 
-            print("\n" + "*** Note: no domain was found in the "
-                         "these potential ERVs(without paired-LTRs)!")
+            print("\n" + "*** Note: no reliable domain of retroviridae was found in the "
+                         "these potential ERVLEs without paired-LTRs!")
 
 
 
@@ -843,6 +893,5 @@ def starts():
 
 
 if __name__ == "__main__":
-    init(wrap=True)
     starts()
 
