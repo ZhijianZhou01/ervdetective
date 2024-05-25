@@ -96,5 +96,5 @@ The bat Myotis myotis (GCA_004026985.1) , and its genome data was downloaded fro
 Then, run:
 
 ```
-ervdetective -i GCA_004026985.1_MyoMyo_v1_BIUU_genomic.fna -p myotis_myotis -o output
+ervdetective -i GCA_004026985.1_MyoMyo_v1_BIUU_genomic.fna -p myotis_myotis -n 10 -o output
 ```
