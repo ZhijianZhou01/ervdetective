@@ -247,7 +247,7 @@ def starts():
 
     print("  Description: An efficient pipeline for identification and annotation of endogenous retroviruses.")
 
-    print("  Version: 1.0.6 (2024-04-29)")
+    print("  Version: 1.0.8 (2024-04-30)")
 
     print("  Author: Zhi-Jian Zhou")
 
@@ -831,11 +831,20 @@ def starts():
                                          + parameter_dic["out_prefix"]
                                          + "_domain_annotation_in_genome_final.txt")
 
-            domain_in_genome_map2 = NoPairLTReveMap(pairltr_ervs_map_genome,
-                                                    no_LTR_flank_hmmer_simplify,
-                                                    noLTR_flank_map_genome,
-                                                    out_map_duplicate_removal)
-            domain_in_genome_map2.run()
+            if LTRharvest_out_size != 0:
+
+                domain_in_genome_map2 = NoPairLTReveMap(pairltr_ervs_map_genome,
+                                                        no_LTR_flank_hmmer_simplify,
+                                                        noLTR_flank_map_genome,
+                                                        out_map_duplicate_removal)
+                domain_in_genome_map2.run()
+
+            elif LTRharvest_out_size == 0:
+                domain_in_genome_map2 = NoPairLTReveMap2(no_LTR_flank_hmmer_simplify,
+                                                        noLTR_flank_map_genome,
+                                                        out_map_duplicate_removal)
+
+                domain_in_genome_map2.run()
 
 
             #  *  extract the potential ERVs ervs and domain in frank sequence *
