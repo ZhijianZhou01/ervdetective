@@ -12,7 +12,29 @@
 
 ervdetective is a command-line-interface program developed based on ```Python 3```, and you can download and install the ervdetective in a variety of ways.
 
-### 1.1. pip method
+### 1.1. conda method (recommend)
+ervdetective has been distributed to the `conda` platform (https://anaconda.org/bioconda/ervdetective), and `conda` will automatically resolve software dependencies (including blast, genometools and hmmer). Thus, we recommend installing ervdetective by `conda`.
+
+```
+# (1) add bioconda origin
+conda config --add channels defaults
+conda config --add channels bioconda
+conda config --add channels conda-forge
+
+# (2) install ervdetective
+## (i) create a separate environment for ervdetective (recommend)
+conda create -n ervdetective_env python=3.7  # python >=3.6
+conda activate ervdetective_env
+conda install ervdetective    # or 'conda install bioconda::ervdetective'
+
+## (ii) or installation without creating separate environment (slow)
+conda install ervdetective  # or 'conda install bioconda::ervdetective'
+
+# (3) view the help documentation
+ervdetective -h
+```
+
+### 1.2. pip method
 
 ervdetective has been distributed to the standard library of ```PyPI``` (https://pypi.org/project/ervdetective/), and can be easily installed by the tool ```pip```.
 
@@ -23,7 +45,9 @@ pip install ervdetective
 ervdetective -h
 ```
 
-### 1.2. Or local installation
+<b>Note, if ervdetective is installed by `pip` tool, you also need to manually install the software dependencies, please see section 2.</b>
+
+### 1.3. Or local installation
 
 In addition, ervdetective can also be installed manually using the file using the file ```setup.py```. 
 
@@ -33,7 +57,7 @@ python setup.py install
 ervdetective -h
 ```
 
-### 1.3. Or run the source code directly
+### 1.3. Or directly run the source code
 
 you can also directly run the source code of ervdetective without installation. First, download this repository, then, install the required python environment of ervdetective:
 
@@ -42,6 +66,8 @@ pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 finally, run ervdetective using the file ```main.py```. Please view the help documentation by ```python main.py -h```.
+
+<b>Note, if you directly run the source code of ervdetective, you also need to manually install the software dependencies, please see section 2.</b>
 
 
 ## 2. Software dependencies
