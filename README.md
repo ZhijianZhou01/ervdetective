@@ -56,18 +56,7 @@ Firstly, download this repository, then, run:
 python setup.py install
 ervdetective -h
 ```
-
-### 1.3. Or directly run the source code
-
-you can also directly run the source code of ervdetective without installation. First, download this repository, then, install the required python environment of ervdetective:
-
-```
-pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
-```
-
-finally, run ervdetective using the file ```main.py```. Please view the help documentation by ```python main.py -h```.
-
-<b>Note, if you directly run the source code of ervdetective, you also need to manually install the software dependencies, please see section 2.</b>
+<b>Note, if ervdetective is installed this way, you also need to manually install the software dependencies, please see section 2.</b>
 
 
 ## 2. Software dependencies
