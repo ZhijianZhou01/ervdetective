@@ -13,7 +13,7 @@
 ervdetective is a command-line-interface program developed based on ```Python 3```, and you can download and install the ervdetective in a variety of ways.
 
 ### 1.1. conda method (recommend)
-ervdetective has been distributed to the `conda` platform (https://anaconda.org/bioconda/ervdetective), and `conda` will automatically resolve software dependencies (including blast, genometools and hmmer). Thus, we recommend installing ervdetective by `conda`.
+ervdetective has been distributed to the `conda` platform (https://anaconda.org/bioconda/ervdetective), and `conda` will automatically resolve software dependencies including [blast](https://anaconda.org/bioconda/blast), [genometools](https://anaconda.org/bioconda/genometools-genometools) and [hmmer3](https://anaconda.org/bioconda/hmmer). Thus, we recommend installing ervdetective by `conda`.
 
 ```
 # (1) add bioconda origin
