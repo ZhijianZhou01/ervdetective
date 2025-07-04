@@ -156,7 +156,7 @@ class SimplyHMMER(object):
                         retroviridae_flage = False
 
                 else:
-                    hit_GAG = "relatively short" + " (" + hit_GAG.split(",")[-1] + "aa)"
+                    hit_GAG = "relatively short"
 
 
 
@@ -169,7 +169,7 @@ class SimplyHMMER(object):
                     line_flage = "True"
 
                 else:
-                    hit_AP = "relatively short" +  " (" + hit_AP.split(",")[-1] + "aa)"
+                    hit_AP = "relatively short"
 
 
             if hit_RT != "not found":
@@ -182,7 +182,7 @@ class SimplyHMMER(object):
                         retroviridae_flage = False
 
                 else:
-                    hit_RT = "relatively short" +  " (" + hit_RT.split(",")[-1] + "aa)"
+                    hit_RT = "relatively short"
 
 
             if hit_RNaseH != "not found":
@@ -190,7 +190,7 @@ class SimplyHMMER(object):
                     line_flage = "True"
 
                 else:
-                    hit_RNaseH = "relatively short" +  " (" + hit_RNaseH.split(",")[-1] + "aa)"
+                    hit_RNaseH = "relatively short"
 
 
             if hit_INT != "not found":
@@ -198,7 +198,7 @@ class SimplyHMMER(object):
                     line_flage = "True"
 
                 else:
-                    hit_INT = "relatively short" + " (" + hit_INT.split(",")[-1] + "aa)"
+                    hit_INT = "relatively short"
 
 
             if hit_ENV != "not found":
@@ -206,7 +206,7 @@ class SimplyHMMER(object):
                     line_flage = "True"
 
                 else:
-                    hit_ENV = "relatively short" + " (" + hit_ENV.split(",")[-1] + "aa)"
+                    hit_ENV = "relatively short"
 
 
             if line_flage == "True" and retroviridae_flage == True:
