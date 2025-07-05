@@ -63,11 +63,9 @@ class GetSeqForHmmer(object):
                     str(flank_seq_dict[ltr_record_list[0]][
                         qury_erv_start - 1: qury_erv_end].seq))
 
-                # the full-length nucleotide sequence of pairLTR ervs
                 pairLTR_eves_file.write(">" + ltr_record_list[-3] + "\n"
                                         + str(erv_seq_contain) + "\n")
         
-                # the aa sequence(6 reading frames) of pairLTR ervs
         
                 pairLTR_evesAA_file.write(">" + ltr_record_list[-3]
                                           + "#ORF1" + "\n"
@@ -86,23 +84,6 @@ class GetSeqForHmmer(object):
                     erv_seq_contain[2:].translate(table=1))
                                           + "\n")
         
-                # pairLTR_evesAA_file.write(">" + ltr_record_list[-3]
-                #                           + "#ORF4" + "\n"
-                #                           + str(
-                #     erv_seq_contain.reverse_complement().translate(table=1))
-                #                           + "\n")
-                #
-                # pairLTR_evesAA_file.write(">" + ltr_record_list[-3]
-                #                           + "#ORF5" + "\n"
-                #                           + str(
-                #     erv_seq_contain.reverse_complement()[1:].translate(table=1))
-                #                           + "\n")
-                #
-                # pairLTR_evesAA_file.write(">" + ltr_record_list[-3]
-                #                           + "#ORF6" + "\n"
-                #                           + str(
-                #     erv_seq_contain.reverse_complement()[2:].translate(table=1))
-                #                           + "\n")
 
         
         duplicate_removal_file.close()
@@ -141,20 +122,7 @@ class GetSeqForHmmer(object):
                                        + str(seq_contain[2:].translate(table=1))
                                        + "\n")
         
-                # no_pairLTR_seqAA.write(">" + key + "#ORF4" + "\n"
-                #                        + str(
-                #     seq_contain.reverse_complement().translate(table=1))
-                #                        + "\n")
-                #
-                # no_pairLTR_seqAA.write(">" + key + "#ORF5" + "\n"
-                #                        + str(
-                #     seq_contain.reverse_complement()[1:].translate(table=1))
-                #                        + "\n")
-                #
-                # no_pairLTR_seqAA.write(">" + key + "#ORF6" + "\n"
-                #                        + str(
-                #     seq_contain.reverse_complement()[2:].translate(table=1))
-                #                        + "\n")
+
 
         
         no_pairLTR_seq.close()
@@ -184,20 +152,6 @@ def GetSeqForHmmer2(input_file, outnt, outAA):
                                + str(seq_contain[2:].translate(table=1))
                                + "\n")
 
-        # no_pairLTR_seqAA.write(">" + key + "#ORF4" + "\n"
-        #                        + str(
-        #     seq_contain.reverse_complement().translate(table=1))
-        #                        + "\n")
-        #
-        # no_pairLTR_seqAA.write(">" + key + "#ORF5" + "\n"
-        #                        + str(
-        #     seq_contain.reverse_complement()[1:].translate(table=1))
-        #                        + "\n")
-        #
-        # no_pairLTR_seqAA.write(">" + key + "#ORF6" + "\n"
-        #                        + str(
-        #     seq_contain.reverse_complement()[2:].translate(table=1))
-        #                       + "\n")
 
     no_pairLTR_seq.close()
     no_pairLTR_seqAA.close()
