@@ -23,8 +23,6 @@ class GetFlanks(object):
         super(GetFlanks, self).__init__()
 
         self.host_path = host_seq
-        # self.RT_blast_path = RT_blast_result
-        # self.env_blast_path = env_blast_result
         self.blast_out_dir = blast_out_dir # Support for multiple probes
         self.out_path = out_path
         self.flank_length= flanks_lenth
@@ -223,7 +221,7 @@ class GetFlanks(object):
                         if qury_start >= refer_start and qury_end <= refer_end:
                             break
 
-            else: 
+            else:
                 use_list.append(line1)
 
 
@@ -248,6 +246,6 @@ class GetFlanks(object):
                                         + reversecomp_seq(
                         seqs[line].strip()) + "\n")   #  Reverse complement the sequence on the negative strand
                 else:
-                    erv_flanking.write(line + "\n" + seqs[line] + "\n")
+                    erv_flanking.write(line + "\n" + seqs[line].strip() + "\n")
 
 
