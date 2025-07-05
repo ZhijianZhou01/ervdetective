@@ -6,6 +6,7 @@ Email: zjzhou@hnu.edu.cn
 Time: 2021/11/10 20:46
 
 """
+
 import os
 
 from public_function import read_gff3
@@ -30,23 +31,28 @@ class SimplyGFF(object):
         seqs, annotations = read_gff3(self.gff3_path)
 
 
-        for anno in annotations:
-            anno_list = anno.strip().split("\t")
+        for key in annotations.keys():
+            annos = annotations[key]
 
+            name = ""
 
-            if anno_list[2] == "repeat_region":
-                region = anno_list[3] + ".." + anno_list[4]
-                name = anno_list[0] + "|" + region
-                if not record_dict.__contains__(name):
-                    record_dict[name] = []
+            for line in annos:
+                anno_list = line.strip().split("\t")
 
-            elif anno_list[2] == "LTR_retrotransposon":
-                similarity = anno_list[-1].split(";")[-2].replace("ltr_similarity=", "")
-                record_dict[name].append(similarity)
+                if anno_list[2] == "repeat_region":
+                    region = anno_list[3] + ".." + anno_list[4]
+                    name = anno_list[0] + "|" + region
+                    if not record_dict.__contains__(name):
+                        record_dict[name] = []
 
-            elif anno_list[2] == "long_terminal_repeat":
-                ltr_region = anno_list[3] + ".." + anno_list[4]
-                record_dict[name].append(ltr_region)
+                elif anno_list[2] == "LTR_retrotransposon":
+                    similarity = anno_list[-1].split(";")[-2].replace("ltr_similarity=", "")
+                    record_dict[name].append(similarity)
+
+                elif anno_list[2] == "long_terminal_repeat":
+                    ltr_region = anno_list[3] + ".." + anno_list[4]
+                    record_dict[name].append(ltr_region)
+
 
         # print(record_dict)
 
@@ -101,7 +107,7 @@ class SimplyGFF(object):
 
             ltr1_start = int(repeat_region_range.split("..")[0])
             # print(ltr1_start)
-            
+
             ltr1_end = int(ltr1_range.split("..")[1])
 
             ltr2_start = int(ltr2_range.split("..")[0])
@@ -140,7 +146,6 @@ class SimplyGFF(object):
                         + qury_seq_name.split("|")[-1])
 
 
-
             out_simplify_file.write(
                 qury_seq_name + "\t" + k.split("|")[1] + "\t" + y[0] + "\t"
                 + str(int(repeat_region_range.split("..")[0])) + ".."
@@ -153,11 +158,9 @@ class SimplyGFF(object):
                 + str(ltr2_start_site) + ".." + str(ltr2_end_site) + "\n")
 
 
-
         out_simplify_file.close()
 
-        out_duplicate_removal = open(self.duplicate_removal_path, "w",
-                                     encoding="utf-8")
+        out_duplicate_removal = open(self.duplicate_removal_path, "w",encoding="utf-8")
 
         simplify_gff3 = open(self.simplify_gff3_path, "r",encoding="utf-8")
 
@@ -167,9 +170,8 @@ class SimplyGFF(object):
                 out_duplicate_removal.write(line)
             else:
                 seq_name = line.split("\t")[-3]
-    
 
-                if seq_name not in lines_seen: 
+                if seq_name not in lines_seen:
                     out_duplicate_removal.write(line)
 
                     lines_seen.add(seq_name)
