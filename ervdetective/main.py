@@ -10,7 +10,7 @@ Time: 2021/11/9 15:19
 import sys
 import os
 import platform
-
+# import psutil
 
 app_dir = os.path.dirname(os.path.realpath(__file__))
 # print(app_dir)
@@ -41,10 +41,6 @@ from public_function import make_dir,hmmer_contain,get_all_path
 
 #  ***** External program *****
 
-# makeblastdb_execute = app_dir + "/external_program/blast_dir/bin/makeblastdb"
-# tblastn_execute = app_dir + "/external_program/blast_dir/bin/tblastn"
-# gt_execute = app_dir + "/external_program/GT/bin/gt"
-# hmmscan_execute = app_dir + "/external_program/HMMER/bin/hmmscan"
 
 makeblastdb_execute = "makeblastdb"     # from blast
 tblastn_execute = "tblastn"             # from blast
@@ -75,12 +71,11 @@ probe_dir =  app_dir + "/Internal_database/probe"
 example_use = r'''
 ----------------☆ Example of use ☆-----------------
 
-ervdetective -i myotis_lucifugus.fna -p myotis_lucifugus -o output
+ervdetective -i myotis_lucifugus.fna -p myotis_lucifugus -n 10 -o output
   
 ----------------------☆  End  ☆---------------------
 
 '''
-
 
 """
 def calculate_memory():
@@ -255,6 +250,10 @@ def starts():
 
 
     myargs = parameter()
+    
+    print(myargs)
+    
+    print("\n")
 
     time_start = datetime.today().now()
 
@@ -550,7 +549,7 @@ def starts():
     LTRharvest_out_size = os.path.getsize(ltrharvest_out_seq)
 
 
-    if LTRharvest_out_size != 0:  # 添加是否有成对LTRs的记号
+    if LTRharvest_out_size != 0:
 
         make_dir(simplify_gff3_dir)
 
