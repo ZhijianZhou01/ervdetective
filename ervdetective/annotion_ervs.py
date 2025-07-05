@@ -32,13 +32,13 @@ class PairLTRErvAnno(object):
         out_domain_annos.write("##Name of ERVs with paired-LTRs" + "\t"
                                + "5'-LTR region" + "\t"
                                + "3'-LTR region" + "\t"
-                               + "GAG gene" + "\t"
-                               + "DUT gene" + "\t"
-                               + "AP gene" + "\t"
-                               + "RT gene" + "\t"
-                               + "RNaseH gene" + "\t"
-                               + "INT gene"+ "\t"
-                               + "ENV gene" + "\n")
+                               + "GAG" + "\t"
+                               + "DUT" + "\t"
+                               + "AP" + "\t"
+                               + "RT" + "\t"
+                               + "RNaseH" + "\t"
+                               + "INT"+ "\t"
+                               + "ENV" + "\n")
 
 
         for line in domain_in_genome_file:
@@ -191,13 +191,13 @@ class PotentialEveAnno(object):
                                 encoding="utf-8")
 
         out_domain_annos.write("##Name of potential ERVLEs without paired-LTRs" + "\t"
-                               + "GAG gene" + "\t"
-                               + "DUT gene" + "\t"
-                               + "AP gene" + "\t"
-                               + "RT gene" + "\t"
-                               + "RNaseH gene" + "\t"
-                               + "INT gene" + "\t"
-                               + "ENV gene" + "\n")
+                               + "GAG" + "\t"
+                               + "DUT" + "\t"
+                               + "AP" + "\t"
+                               + "RT" + "\t"
+                               + "RNaseH" + "\t"
+                               + "INT" + "\t"
+                               + "ENV" + "\n")
 
 
         for line in domain_duplicate_removal:
